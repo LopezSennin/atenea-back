@@ -5,11 +5,13 @@ const router = Router();
 
 router.get("/:id_peluqueria", citaController.getAll);
 
-router.get("/:id_peluqueria/:", citaController.getAllByActivo);
+router.get("/:id_peluqueria/:id_empleado", citaController.getAllByEstilista);
 
-router.get("/:id_peluqueria/rol/:id_rol", citaController.getAllByRol);
+router.get("/:id_peluqueria/fecha/:fecha", citaController.getAllByFecha);
 
-router.get("/:id_peluqueria/id/:id_cita", citaController.getById);
+router.get("/:id_peluqueria/:fechad/al/:fechah", citaController.getByFechaAfecha);
+
+router.get("/:id_peluqueria/dia/:id_dia", citaController.getAllByDia);
 
 router.put("/:id_peluqueria/id/:id_cita", citaController.update);
 
