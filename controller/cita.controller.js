@@ -78,4 +78,12 @@ const create = async (req, res) => {
     }
 };
 
-export const citaController = { getAll, getAllByEstilista, getAllByFecha, getByFechaAfecha, getAllByDia, update, create };
+export const citaController = { 
+    getAll, 
+    getAllByEstilista, 
+    getAllByFecha, 
+    getByFechaAfecha, 
+    getAllByDia, 
+    update, 
+    create 
+};
