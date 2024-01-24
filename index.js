@@ -7,6 +7,7 @@ import tipoProductoRoute from "./routes/tipoProducto.route.js";
 import empleadoRoute from "./routes/empleado.route.js";
 import rolRoute from "./routes/rol.route.js";
 import rolAsignadoRoute from "./routes/rolAsignado.route.js";
+import citaRoute from "./routes/cita.route.js";
 
 const app = new Express();
 
@@ -25,6 +26,8 @@ app.use("/api/empleado", empleadoRoute);
 app.use("/api/rol", rolRoute);
 
 app.use("/api/rolasignado", rolAsignadoRoute);
+
+app.use("/api/cita", citaRoute);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
