@@ -1,14 +1,26 @@
 import { pool } from "../database/connection.js";
 
-const findAll = async (id_peluqueria) => {
-    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1';
+const findAllActivas = async (id_peluqueria) => {
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND estado = true ORDER BY fecha ASC';
     const {rows} = await pool.query(query, [id_peluqueria]);
     return rows;
 };
 
-const findAllByEstilista = async (id_peluqueria, id_empleado) => {
-    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND id_empleado = $2';
-    const {rows} = await pool.query(query, [id_peluqueria, id_empleado]);
+const findAllInactivas = async (id_peluqueria) => {
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND estado = false ORDER BY fecha DESC';
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+}
+
+const findAllByEstilista = async (id_peluqueria, id_estilista) => {
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND id_estilista = $2 AND estado = true ORDER BY fecha ASC';
+    const {rows} = await pool.query(query, [id_peluqueria, id_estilista]);
+    return rows;
+};
+
+const findAllByCliente = async (id_peluqueria, id_cliente) => {
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND id_cliente = $2 AND estado = true ORDER BY fecha ASC';
+    const {rows} = await pool.query(query, [id_peluqueria, id_cliente]);
     return rows;
 };
 
@@ -19,29 +31,38 @@ const findAllByFecha = async (id_peluqueria, fecha) => {
 };
 
 const findByFechaAfecha = async (id_peluqueria, fechad, fechah) => {
-    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND fecha BETWEEN $2 AND $3';
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND fecha BETWEEN $2 AND $3 ORDER BY fecha ASC';
     const {rows} = await pool.query(query, [id_peluqueria, fechad, fechah]);
     return rows;
 };
 
 const findAllByDia = async (id_peluqueria, id_dia) => {
-    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND id_dia = $2';
+    const query = 'SELECT * FROM cita WHERE id_peluqueria = $1 AND EXTRACT(DOW FROM fecha) = $2 ORDER BY fecha ASC';
     const {rows} = await pool.query(query, [id_peluqueria, id_dia]);
     return rows;
 };
 
-const update = async (id_peluqueria, id_cita, cita) => {
-    const query = 'UPDATE cita SET fecha = $1, hora = $2, id_empleado = $3, id_cliente = $4, id_dia = $5, id_servicio = $6 WHERE id_peluqueria = $7 AND id_cita = $8';
-    const {rows} = await pool.query(query, [cita.fecha, cita.hora, cita.id_empleado, cita.id_cliente, cita.id_dia, cita.id_servicio, id_peluqueria, id_cita]);
+const update = async ( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita) => {
+    const query = 'UPDATE cita SET id_estilista = $1, id_cliente = $2, id_servicio_principal = $3, fecha = $4, id_dia = $5, anotacion = $6 WHERE id_cita = $7';
+    const {rows} = await pool.query(query, [ id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita]);
     return rows;
 }
 
+const create = async (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion) => {
+    const query = 'INSERT INTO cita (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    const {rows} = await pool.query(query, [id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion]);
+    return rows;
+};
+
 export const citaModel = { 
-    findAll, 
+    findAllActivas,
+    findAllInactivas, 
     findAllByEstilista,
+    findAllByCliente,
     findAllByFecha,
     findByFechaAfecha,
     findAllByDia,
-    update
+    update,
+    create
     
 };

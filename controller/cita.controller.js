@@ -1,9 +1,9 @@
 import { citaModel } from "../models/cita.model.js";
 
-const getAll = async (req, res) => {
+const getAllActivas = async (req, res) => {
     try {
         const { id_peluqueria } = req.params;
-        const response = await citaModel.findAll(id_peluqueria);
+        const response = await citaModel.findAllActivas(id_peluqueria);
         res.json(response);
     } catch (error) {
         console.log(error)
@@ -11,16 +11,39 @@ const getAll = async (req, res) => {
     }
 };
 
-const getAllByEstilista = async (req, res) => {
+const getAllInactivas = async (req, res) => {
     try {
-        const { id_peluqueria, id_empleado } = req.params;
-        const response = await citaModel.findAllByEstilista(id_peluqueria, id_empleado);
+        const { id_peluqueria } = req.params;
+        const response = await citaModel.findAllInactivas(id_peluqueria);
         res.json(response);
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: error.message });
     }
 };
+
+
+const getAllByEstilista = async (req, res) => {
+    try {
+        const { id_peluqueria, id_estilista } = req.params;
+        const response = await citaModel.findAllByEstilista(id_peluqueria, id_estilista);
+        res.json(response);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const getAllByCliente = async (req, res) => {
+    try {
+        const { id_peluqueria, id_cliente } = req.params;
+        const response = await citaModel.findAllByCliente(id_peluqueria, id_cliente);
+        res.json(response);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+}
 
 const getAllByFecha = async (req, res) => {
     try {
@@ -57,9 +80,9 @@ const getAllByDia = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const { id_producto } = req.params;
-        const { codigo, nombre, descripcion, precio, unidad_medida, stock, tipo } = req.body;
-        const response = await productoModel.update(id_producto, codigo, nombre, descripcion, precio, unidad_medida, stock, tipo);
+        const { id_cita } = req.params;
+        const {  id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
+        const response = await productoModel.update( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -69,8 +92,8 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { id_peluqueria, codigo, nombre, descripcion, precio, unidad_medida, stock, tipo } = req.body;
-        const response = await productoModel.create(id_peluqueria, codigo, nombre, descripcion, precio, unidad_medida, stock, tipo);
+        const { id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
+        const response = await productoModel.create( id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -79,8 +102,10 @@ const create = async (req, res) => {
 };
 
 export const citaController = { 
-    getAll, 
+    getAllActivas,
+    getAllInactivas, 
     getAllByEstilista, 
+    getAllByCliente,
     getAllByFecha, 
     getByFechaAfecha, 
     getAllByDia, 
