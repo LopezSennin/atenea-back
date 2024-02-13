@@ -43,14 +43,14 @@ const findAllByDia = async (id_peluqueria, id_dia) => {
 };
 
 const update = async ( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita) => {
-    const query = 'UPDATE cita SET id_estilista = $1, id_cliente = $2, id_servicio_principal = $3, fecha = $4, id_dia = $5, anotacion = $6 WHERE id_cita = $7';
+    const query = 'UPDATE cita SET id_estilista = $1, id_cliente = $2, id_servicio_principal = $3, fecha = $4, anotacion = $5 WHERE id_cita = $6 RETURNING *';
     const {rows} = await pool.query(query, [ id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita]);
     return rows;
 }
 
-const create = async (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion) => {
-    const query = 'INSERT INTO cita (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion) VALUES ($1, $2, $3, $4, $5, $6, $7)';
-    const {rows} = await pool.query(query, [id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, id_dia, anotacion]);
+const create = async (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha,  anotacion) => {
+    const query = 'INSERT INTO cita (id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+    const {rows} = await pool.query(query, [id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion]);
     return rows;
 };
 

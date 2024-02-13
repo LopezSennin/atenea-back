@@ -6,6 +6,7 @@ const getAll = async (_, res) => {
         res.json(response);
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -16,6 +17,7 @@ const getById = async (req, res) => {
         res.json(response);
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -26,6 +28,7 @@ const update = async (req, res) => {
         const response = await peluqueriaModel.update(id_peluqueria, nombre, nit, email, nombre_ceo, telefono, direccion);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -36,13 +39,14 @@ const create = async (req, res) => {
         const response = await peluqueriaModel.create(nombre, nit, email, nombre_ceo, telefono, direccion);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
 
 export const peluqueriaController = {
     getAll,
-    create,
-    getById,
     update,
+    getById,
+    create,
 };

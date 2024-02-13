@@ -18,21 +18,27 @@ const findAllByRol = async (id_peluqueria, id_rol) => {
     return rows;
 };
 
-const findById = async (id_peluqueria, id_empleado) => {
-    const query = 'SELECT * FROM empleado WHERE id_peluqueria = $1 AND id_empleado = $2';
-    const {rows} = await pool.query(query, [id_peluqueria, id_empleado]);
+const findByIdentificacion = async (id_peluqueria, identificacion) => {
+    const query = 'SELECT * FROM empleado WHERE id_peluqueria = $1 AND identificacion = $2';
+    const {rows} = await pool.query(query, [id_peluqueria, identificacion]);
     return rows[0];
 };
 
-const update = async (id_peluqueria, id_empleado, nombre, telefono, email, fecha_nacimiento, activo) => {
-    const query = 'UPDATE empleado SET nombre = $1, telefono = $2, email = $3, fecha_nacimiento = $4, activo = $5 WHERE id_peluqueria = $6 AND  id_empleado = $7 RETURNING *';
-    const {rows} = await pool.query(query, [nombre, telefono, email, fecha_nacimiento, activo, id_peluqueria, id_empleado]);
+const findById = async (id_empleado) => {
+    const query = 'SELECT * FROM empleado WHERE id_empleado = $1';
+    const {rows} = await pool.query(query, [ id_empleado]);
     return rows[0];
 };
 
-const create = async (id_peluqueria, id_empleado, nombre, telefono, email, fecha_nacimiento) => {
-    const query = 'INSERT INTO empleado (id_peluqueria, id_empleado, nombre, telefono, email, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
-    const {rows} = await pool.query(query, [id_peluqueria, id_empleado, nombre, telefono, email, fecha_nacimiento]);
+const update = async ( id_empleado, nombre, telefono, email, fecha_nacimiento, activo, identificacion) => {
+    const query = 'UPDATE empleado SET nombre = $1, telefono = $2, email = $3, fecha_nacimiento = $4, activo = $5, identificacion = $6 WHERE id_empleado = $7 RETURNING *';
+    const {rows} = await pool.query(query, [nombre, telefono, email, fecha_nacimiento, activo, identificacion, id_empleado]);
+    return rows[0];
+};
+
+const create = async (id_peluqueria, identificacion, nombre, telefono, email, fecha_nacimiento) => {
+    const query = 'INSERT INTO empleado (id_peluqueria, identificacion, nombre, telefono, email, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+    const {rows} = await pool.query(query, [id_peluqueria, identificacion, nombre, telefono, email, fecha_nacimiento]);
     return rows[0];
 };
 
@@ -40,6 +46,7 @@ export const empleadoModel = {
     findAll,
     findAllByActivo,
     findAllByRol,
+    findByIdentificacion,
     findById,
     update,
     create,

@@ -1,9 +1,9 @@
-import { categoriaEgresoModel } from "../models/categoriaEgreso.model.js";
+import { categoriaServicioModel } from "../models/categoriaServicio.model.js";
 
 const getAll = async (req, res) => {
     try {
         const { id_peluqueria } = req.params;
-        const response = await categoriaEgresoModel.findAll(id_peluqueria);
+        const response = await categoriaServicioModel.findAll(id_peluqueria);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -14,7 +14,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
     try {
         const { id_categoria } = req.params;
-        const response = await categoriaEgresoModel.findById(id_categoria);
+        const response = await categoriaServicioModel.findById(id_categoria);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -26,7 +26,7 @@ const update = async (req, res) => {
     try {
         const { id_categoria } = req.params;
         const { nombre, descripcion } = req.body;
-        const response = await categoriaEgresoModel.update(id_categoria, nombre, descripcion);
+        const response = await categoriaServicioModel.update(id_categoria, nombre, descripcion);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -34,10 +34,10 @@ const update = async (req, res) => {
     }
 };
 
-const deleteCategoriaEgreso = async (req, res) => {
+const deleteCategoriaServicio = async (req, res) => {
     try {
         const { id_categoria } = req.params;
-        const response = await categoriaEgresoModel.deleteById(id_categoria);
+        const response = await categoriaServicioModel.deleteById(id_categoria);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -48,7 +48,7 @@ const deleteCategoriaEgreso = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { id_peluqueria, nombre, descripcion } = req.body;
-        const response = await categoriaEgresoModel.create(id_peluqueria, nombre, descripcion);
+        const response = await categoriaServicioModel.create(id_peluqueria, nombre, descripcion);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -56,10 +56,10 @@ const create = async (req, res) => {
     }
 };
 
-export const categoriaEgresoController = {
+export const categoriaServicioController = {
     getAll,
     getById,
-    deleteCategoriaEgreso,
+    deleteCategoriaServicio,
     update,
     create,
 };

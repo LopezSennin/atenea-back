@@ -6,6 +6,7 @@ const getAll = async (req, res) => {
         const response = await productoModel.findAll(id_peluqueria);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -16,6 +17,7 @@ const getById = async (req, res) => {
         const response = await productoModel.findById(id_producto);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -26,6 +28,7 @@ const getByType = async (req, res) => {
         const response = await productoModel.findByType(tipo);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -37,6 +40,7 @@ const update = async (req, res) => {
         const response = await productoModel.update(id_producto, codigo, nombre, descripcion, precio, unidad_medida, stock, tipo);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -47,6 +51,7 @@ const create = async (req, res) => {
         const response = await productoModel.create(id_peluqueria, codigo, nombre, descripcion, precio, unidad_medida, stock, tipo);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -55,6 +60,6 @@ export const productoController = {
     getAll,
     getByType,
     getById,
-    create,
     update,
+    create,
 };

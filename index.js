@@ -9,8 +9,20 @@ import rolRoute from "./routes/rol.route.js";
 import rolAsignadoRoute from "./routes/rolAsignado.route.js";
 import citaRoute from "./routes/cita.route.js";
 import categoriaEgresoRoute from "./routes/categoriaEgreso.route.js";
-// import egresoRoute from "./routes/egreso.route.js";
-// import mercanciaRoute from "./routes/mercancia.route.js";
+import egresoRoute from "./routes/egreso.route.js";
+import mercanciaRoute from "./routes/mercancia.route.js";
+import categoriaServicioRoute from "./routes/categoriaServicio.route.js";
+import servicioRoute from "./routes/servicio.route.js";
+import alergiaRoute from "./routes/alergia.route.js";
+import patologiaRoute from "./routes/patologia.route.js";
+import tareaRoute from "./routes/tarea.route.js";
+import tareaCitaRoute from "./routes/tareaCita.route.js";
+import atencionRoute from "./routes/atencion.route.js";
+import servicioCitaRoute from "./routes/servicioCita.route.js";
+import productoCitaRoute from "./routes/productoCita.route.js";
+import ventaMercanciaRoute from "./routes/ventaMercancia.route.js";
+import detalleVentaRoute from "./routes/detalleVenta.route.js";
+import transaccionRoute from "./routes/transaccion.route.js";
 
 const app = new Express();
 
@@ -34,48 +46,35 @@ app.use("/api/cita", citaRoute);
 
 app.use("/api/categoriaegreso", categoriaEgresoRoute);
 
-// app.use("/api/egreso", egresoRoute);
+app.use("/api/egreso", egresoRoute);
 
-// app.use("/api/mercancia", mercanciaRoute);
+app.use("/api/mercancia", mercanciaRoute);
 
-// app.use("/api/categoriaservicio", categoriaServicioRoute);
+app.use("/api/categoriaservicio", categoriaServicioRoute);
 
-// app.use("/api/servicio", servicioRoute);
+app.use("/api/servicio", servicioRoute);
 
-// app.use("/api/alergia", alergiaRoute);
+app.use("/api/alergia", alergiaRoute);
 
-// app.use("/api/patologia", patologiaRoute);
+app.use("/api/patologia", patologiaRoute);
 
-// app.use("/api/tarea", tareaRoute);
+app.use("/api/tarea", tareaRoute);
 
-// app.use("/api/tareacita", tareaCitaRoute);
+app.use("/api/tareacita", tareaCitaRoute);
 
-// app.use("/api/servicioprestado", servicioPrestadoRoute);
+app.use("/api/atencion", atencionRoute);
+
+app.use("/api/serviciocita", servicioCitaRoute);
+
+app.use("/api/productocita", productoCitaRoute);
+
+app.use("/api/ventamercancia", ventaMercanciaRoute);
+
+app.use("/api/detalleventa", detalleVentaRoute);
+
+app.use("/api/transaccion", transaccionRoute);
 
 // app.use("/api/pruebacapilar", pruebaCapilarRoute);
-
-// app.use("/api/serviciocita", servicioCitaRoute);
-
-// app.use("/api/productocita", productoCitaRoute);
-
-// app.use("/api/ventamercancia", ventaMercanciaRoute);
-
-// app.use("/api/detalleventa", detalleVentaRoute);
-
-// app.use("/api/transacion", transacionRoute);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

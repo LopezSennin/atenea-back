@@ -1,9 +1,9 @@
-import { tipoProductoModel } from "../models/tipoProducto.model.js";
+import { alergiaModel } from "../models/alergia.model.js";
 
 const getAll = async (req, res) => {
     try {
-        const { id_peluqueria } = req.params;
-        const response = await tipoProductoModel.findAll(id_peluqueria);
+        const { id_patologia } = req.params;
+        const response = await alergiaModel.findAll(id_patologia);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -11,10 +11,10 @@ const getAll = async (req, res) => {
     }
 };
 
-const getById = async (req, res) => {
+const getByIdCliente = async (req, res) => {
     try {
-        const { id_tipo } = req.params;
-        const response = await tipoProductoModel.findById(id_tipo);
+        const { id_cliente } = req.params;
+        const response = await alergiaModel.findByIdCliente(id_cliente);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -22,11 +22,10 @@ const getById = async (req, res) => {
     }
 };
 
-const update = async (req, res) => {
+const deleteById = async (req, res) => {
     try {
-        const { id_tipo } = req.params;
-        const { tipo } = req.body;
-        const response = await tipoProductoModel.update(id_tipo, tipo);
+        const { id_alergia } = req.params;
+        const response = await alergiaModel.deleteById(id_alergia);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -36,8 +35,8 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { id_peluqueria, tipo } = req.body;
-        const response = await tipoProductoModel.create(id_peluqueria, tipo);
+        const { id_peluqueria, id_patologia, tipo_producto } = req.body;
+        const response = await alergiaModel.create(id_peluqueria, id_patologia, tipo_producto);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -45,9 +44,9 @@ const create = async (req, res) => {
     }
 };
 
-export const tipoProductoController = {
+export const alergiaController = {
     getAll,
-    update,
-    getById,
+    getByIdCliente,
+    deleteById,
     create,
 };

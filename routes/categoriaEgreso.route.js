@@ -5,9 +5,11 @@ const router = Router();
 
 router.get("/:id_peluqueria", categoriaEgresoController.getAll);
 
-router.get("/id/:id_tipo", categoriaEgresoController.getById);
+router.get("/id/:id_categoria", categoriaEgresoController.getById);
 
-router.put("/:id_tipo", categoriaEgresoController.update);
+router.put("/:id_categoria", categoriaEgresoController.update);
+
+router.delete("/:id_categoria", categoriaEgresoController.deleteCategoriaEgreso);
 
 router.post("/", categoriaEgresoController.create);
 

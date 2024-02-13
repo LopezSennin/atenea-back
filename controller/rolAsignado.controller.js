@@ -6,6 +6,7 @@ const getAll = async (req, res) => {
         const response = await rolAsignadoModel.findAll(id_peluqueria);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -16,6 +17,7 @@ const getByIdRol = async (req, res) => {
         const response = await rolAsignadoModel.findByIdRol(id_peluqueria, id_rol);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -26,6 +28,7 @@ const getByIdEmpleado = async (req, res) => {
         const response = await rolAsignadoModel.findByIdEmpleado(id_peluqueria, id_empleado);
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 }
@@ -36,6 +39,7 @@ const deleteAsig = async (req, res) => {
         const response = await rolAsignadoModel.deleteAsig(id_asignacion );
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };
@@ -46,6 +50,7 @@ const create = async (req, res) => {
         const response = await rolAsignadoModel.create(id_peluqueria, id_rol, id_empleado );
         res.json(response);
     } catch (error) {
+        res.status(500).json({ message: error.message });
         console.log(error);
     }
 };

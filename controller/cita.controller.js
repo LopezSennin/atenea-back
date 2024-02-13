@@ -82,7 +82,7 @@ const update = async (req, res) => {
     try {
         const { id_cita } = req.params;
         const {  id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
-        const response = await productoModel.update( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita);
+        const response = await citaModel.update( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -93,7 +93,7 @@ const update = async (req, res) => {
 const create = async (req, res) => {
     try {
         const { id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
-        const response = await productoModel.create( id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion);
+        const response = await citaModel.create( id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion);
         res.json(response);
     } catch (error) {
         console.log(error);
