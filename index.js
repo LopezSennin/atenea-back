@@ -23,6 +23,7 @@ import productoCitaRoute from "./routes/productoCita.route.js";
 import ventaMercanciaRoute from "./routes/ventaMercancia.route.js";
 import detalleVentaRoute from "./routes/detalleVenta.route.js";
 import transaccionRoute from "./routes/transaccion.route.js";
+import pruebaCapilarRoute from "./routes/pruebaCapilar.route.js";
 
 const app = new Express();
 
@@ -74,7 +75,7 @@ app.use("/api/detalleventa", detalleVentaRoute);
 
 app.use("/api/transaccion", transaccionRoute);
 
-// app.use("/api/pruebacapilar", pruebaCapilarRoute);
+app.use("/api/pruebacapilar", pruebaCapilarRoute);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

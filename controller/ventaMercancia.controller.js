@@ -2,8 +2,8 @@ import {ventaMercanciaModel} from '../models/ventaMercancia.model.js';
 
 const iniciarVentaMercancia = async (req, res) => {
     try {
-        const {id_peluqueria, id_cliente, id_vendedor, valor} = req.body;
-        const venta = await ventaMercanciaModel.iniciar(id_peluqueria, id_cliente, id_vendedor, valor);
+        const {id_peluqueria, id_cliente, id_vendedor} = req.body;
+        const venta = await ventaMercanciaModel.iniciar(id_peluqueria, id_cliente, id_vendedor);
         res.status(200).json(venta);
     } catch (error) {
         res.status(500).send(error);
@@ -44,9 +44,21 @@ const listarFechaAFechaCliente = async (req, res) => {
     }
 }
 
+const finalizarVentaMercancia = async (req, res) => {
+    try {
+        const {id_venta} = req.params;
+        const venta = await ventaMercanciaModel.finalizar(id_venta, id_peluqueria);
+        res.status(200).json(venta);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 export const ventaMercanciaController = {
     iniciarVentaMercancia,
     listarFechaAFecha,
     listarFechaAFechaVendedor,
-    listarFechaAFechaCliente
+    listarFechaAFechaCliente,
+    finalizarVentaMercancia
 };

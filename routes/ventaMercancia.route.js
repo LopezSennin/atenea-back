@@ -12,6 +12,8 @@ router.get('/listarfechaafechavendedor/:id_vendedor/:fecha1/:fecha2', ventaMerca
 
 router.get('/listarfechaafechacliente/:id_cliente/:fecha1/:fecha2', ventaMercanciaController.listarFechaAFechaCliente);
 
+router.put('/finalizar/:id_venta/:id_peluqueria', ventaMercanciaController.finalizarVentaMercancia);
+
 
 
 export default router;
