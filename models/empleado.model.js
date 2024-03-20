@@ -30,6 +30,12 @@ const findById = async (id_empleado) => {
     return rows[0];
 };
 
+const findByEmail = async (email) => {
+    const query = 'SELECT * FROM empleado WHERE email = $1';
+    const {rows} = await pool.query(query, [email]);
+    return rows[0];
+};
+
 const update = async ( id_empleado, nombre, telefono, email, fecha_nacimiento, activo, identificacion) => {
     const query = 'UPDATE empleado SET nombre = $1, telefono = $2, email = $3, fecha_nacimiento = $4, activo = $5, identificacion = $6 WHERE id_empleado = $7 RETURNING *';
     const {rows} = await pool.query(query, [nombre, telefono, email, fecha_nacimiento, activo, identificacion, id_empleado]);
@@ -48,6 +54,7 @@ export const empleadoModel = {
     findAllByRol,
     findByIdentificacion,
     findById,
+    findByEmail, 
     update,
     create,
 };

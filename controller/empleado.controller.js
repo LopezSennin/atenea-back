@@ -55,6 +55,17 @@ const getById = async (req, res) => {
     }
 };
 
+const getByEmail = async (req, res) => {
+    try {
+        const { email } = req.params;
+        const response = await empleadoModel.findByEmail(email);
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
 const update = async (req, res) => {
     try {
         const { id_empleado } = req.params;
@@ -84,6 +95,7 @@ export const empleadoController = {
     getAllByRol,
     getByIdentificacion,
     getById,
+    getByEmail,
     update,
     create,
 };
