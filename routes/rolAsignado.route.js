@@ -7,7 +7,7 @@ router.get("/:id_peluqueria", rolAsignadoController.getAll);
 
 router.get("/:id_peluqueria/idrol/:id_rol", rolAsignadoController.getByIdRol);
 
-router.get("/:id_peluqueria/idempleado/:id_empleado", rolAsignadoController.getByIdEmpleado);
+router.get("/idempleado/:id_empleado", rolAsignadoController.getByIdEmpleado);
 
 router.delete("/:id_asignacion", rolAsignadoController.deleteAsig);
 

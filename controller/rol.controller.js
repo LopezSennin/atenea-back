@@ -13,8 +13,8 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const { id_peluqueria, id_rol } = req.params;
-        const response = await rolModel.findById(id_peluqueria, id_rol);
+        const { id_rol } = req.params;
+        const response = await rolModel.findById( id_rol);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });

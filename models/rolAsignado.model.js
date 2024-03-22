@@ -12,9 +12,9 @@ const findByIdRol = async (id_peluqueria, id_rol) => {
     return rows[0];
 };
 
-const findByIdEmpleado = async (id_peluqueria, id_empleado) => {
-    const query = 'SELECT * FROM rol_asignado WHERE id_peluqueria = $1 AND id_empleado = $2';
-    const {rows} = await pool.query(query, [id_peluqueria, id_empleado]);
+const findByIdEmpleado = async (id_empleado) => {
+    const query = 'SELECT id_rol FROM rol_asignado WHERE id_empleado = $1';
+    const {rows} = await pool.query(query, [id_empleado]);
     return rows[0];
 };
 

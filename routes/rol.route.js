@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/:id_peluqueria", rolController.getAll);
 
-router.get("/:id_rol", rolController.getById);
+router.get("/id/:id_rol", rolController.getById);
 
 router.put("/:id_rol", rolController.update);
 

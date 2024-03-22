@@ -24,8 +24,8 @@ const getByIdRol = async (req, res) => {
 
 const getByIdEmpleado = async (req, res) => {
     try {
-        const { id_peluqueria, id_empleado } = req.params;
-        const response = await rolAsignadoModel.findByIdEmpleado(id_peluqueria, id_empleado);
+        const { id_empleado } = req.params;
+        const response = await rolAsignadoModel.findByIdEmpleado(id_empleado);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
