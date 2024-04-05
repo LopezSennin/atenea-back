@@ -79,6 +79,17 @@ const registrarCostoServicioPrestado = async (req, res) => {
     }
 };
 
+const getServiciosPorEmpleado = async (req, res) => {
+    try {
+        const {id_empleado, fecha_desde, fecha_hasta} = req.params;
+        const atencion = await atencionModel.findServiciosPorEmpleado(id_empleado, fecha_desde, fecha_hasta);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+};
+
 export const atencionController = {
     add,
     getSinFinalizar,
@@ -86,5 +97,6 @@ export const atencionController = {
     finalizarServicio,
     getServiciosPrestadosPorFecha,
     getServicioPrestadoPorId,
-    registrarCostoServicioPrestado
+    registrarCostoServicioPrestado,
+    getServiciosPorEmpleado
 };

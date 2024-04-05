@@ -18,4 +18,6 @@ router.get('/idservicioprestado/:id_servicio_prestado', atencionController.getSe
 
 router.put('/registrarcosto/:id_servicio_prestado', atencionController.registrarCostoServicioPrestado);
 
+router.get('/serviciosporempleado/:id_empleado/:fecha_desde/:fecha_hasta', atencionController.getServiciosPorEmpleado);
+
 export default router;

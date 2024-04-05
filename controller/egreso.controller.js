@@ -34,8 +34,8 @@ const getById = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id_egreso } = req.params;
-        const { id_categoria, valor, fecha, descripcion } = req.body;
-        const response = await egresoModel.update(id_egreso, id_categoria, valor, fecha, descripcion);
+        const { id_categoria, valor, descripcion } = req.body;
+        const response = await egresoModel.update(id_egreso, id_categoria, valor, descripcion);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -45,8 +45,8 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { id_peluqueria, id_categoria, valor, fecha, descripcion } = req.body;
-        const response = await egresoModel.create(id_peluqueria, id_categoria, valor, fecha, descripcion);
+        const { id_peluqueria, id_categoria, valor, descripcion } = req.body;
+        const response = await egresoModel.create(id_peluqueria, id_categoria, valor, descripcion);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });

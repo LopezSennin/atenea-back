@@ -1,7 +1,7 @@
 import { pool } from "../database/connection.js";
 
 const findAll = async (id_peluqueria) => {
-    const query = 'SELECT * FROM egreso WHERE id_peluqueria = $1';
+    const query = "SELECT id_peluqueria, id_egreso, id_categoria, valor, TO_CHAR(fecha, 'DD-MM-YYYY') AS fecha, descripcion FROM egreso WHERE id_peluqueria = $1";
     const {rows} = await pool.query(query, [id_peluqueria]);
     return rows;
 };
@@ -18,15 +18,15 @@ const findById = async (id_egreso) => {
     return rows[0];
 };
 
-const update = async (id_egreso, id_categoria, valor, fecha, descripcion) => {
-    const query = 'UPDATE egreso SET id_categoria = $1, valor = $2, fecha = $3, descripcion = $4 WHERE id_egreso = $5 RETURNING *';
-    const {rows} = await pool.query(query, [ id_categoria, valor, fecha, descripcion, id_egreso]);
+const update = async (id_egreso, id_categoria, valor, descripcion) => {
+    const query = 'UPDATE egreso SET id_categoria = $1, valor = $2,  descripcion = $3 WHERE id_egreso = $4 RETURNING *';
+    const {rows} = await pool.query(query, [ id_categoria, valor, descripcion, id_egreso]);
     return rows[0];
 };
 
-const create = async (id_peluqueria, id_categoria, valor, fecha, descripcion) => {
-    const query = 'INSERT INTO egreso (id_peluqueria, id_categoria, valor, fecha, descripcion) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-    const {rows} = await pool.query(query, [id_peluqueria, id_categoria, valor, fecha, descripcion]);
+const create = async (id_peluqueria, id_categoria, valor, descripcion) => {
+    const query = 'INSERT INTO egreso (id_peluqueria, id_categoria, valor, descripcion) VALUES ($1, $2, $3, $4) RETURNING *';
+    const {rows} = await pool.query(query, [id_peluqueria, id_categoria, valor, descripcion]);
     return rows[0];
 };
 

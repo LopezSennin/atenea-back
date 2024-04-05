@@ -36,8 +36,8 @@ const getById = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id_servicio } = req.params;
-        const { id_categoria, codigo, descripcion } = req.body;
-        const response = await servicioModel.update(id_servicio, id_categoria, codigo, descripcion);
+        const { id_categoria, codigo, descripcion, nombre } = req.body;
+        const response = await servicioModel.update(id_servicio, id_categoria, codigo, descripcion, nombre);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -47,8 +47,8 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { id_peluqueria, id_categoria, codigo, descripcion } = req.body;
-        const response = await servicioModel.create(id_peluqueria, id_categoria, codigo, descripcion);
+        const { id_peluqueria, id_categoria, codigo, descripcion, nombre } = req.body;
+        const response = await servicioModel.create(id_peluqueria, id_categoria, codigo, descripcion, nombre);
         res.json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });

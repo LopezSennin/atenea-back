@@ -24,8 +24,11 @@ import ventaMercanciaRoute from "./routes/ventaMercancia.route.js";
 import detalleVentaRoute from "./routes/detalleVenta.route.js";
 import transaccionRoute from "./routes/transaccion.route.js";
 import pruebaCapilarRoute from "./routes/pruebaCapilar.route.js";
+import cors from "cors";
 
 const app = new Express();
+
+app.use(cors());
 
 app.use(Express.json());
 

@@ -42,6 +42,12 @@ const registrarCostoServicioPrestado = async (id_atencion, costo) => {
     return rows[0];
 };
 
+const findServiciosPorEmpleado = async (id_empleado, fecha_desde, fecha_hasta) => {
+    const query = `SELECT * from buscar_atenciones_por_empleado($1, $2, $3)`;
+    const {rows} = await pool.query(query, [id_empleado, fecha_desde, fecha_hasta]);
+    return rows;
+};
+
 export const atencionModel = {
     add,
     findSinFinalizar,
@@ -49,5 +55,6 @@ export const atencionModel = {
     finalizarServicio,
     findServiciosPrestadosPorFecha,
     findServicioPrestadoPorId,
-    registrarCostoServicioPrestado
+    registrarCostoServicioPrestado,
+    findServiciosPorEmpleado
 };

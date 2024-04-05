@@ -18,15 +18,15 @@ const findById = async (id_servicio) => {
     return rows[0];
 };
 
-const update = async (id_servicio, id_categoria, codigo, descripcion) => {
-    const query = 'UPDATE servicio SET id_categoria = $1, codigo = $2, descripcion = $3 WHERE id_servicio = $4 RETURNING *';
-    const {rows} = await pool.query(query, [ id_categoria, codigo, descripcion, id_servicio]);
+const update = async (id_servicio, id_categoria, codigo, descripcion, nombre) => {
+    const query = 'UPDATE servicio SET id_categoria = $1, codigo = $2, descripcion = $3, nombre = $4 WHERE id_servicio = $5 RETURNING *';
+    const {rows} = await pool.query(query, [ id_categoria, codigo, descripcion, nombre, id_servicio]);
     return rows[0];
 };
 
-const create = async (id_peluqueria, id_categoria, codigo, descripcion) => {
-    const query = 'INSERT INTO servicio (id_peluqueria, id_categoria, codigo, descripcion) VALUES ($1, $2, $3, $4) RETURNING *';
-    const {rows} = await pool.query(query, [id_peluqueria, id_categoria, codigo, descripcion]);
+const create = async (id_peluqueria, id_categoria, codigo, descripcion, nombre) => {
+    const query = 'INSERT INTO servicio (id_peluqueria, id_categoria, codigo, descripcion, nombre) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+    const {rows} = await pool.query(query, [id_peluqueria, id_categoria, codigo, descripcion, nombre]);
     return rows[0];
 };
 
