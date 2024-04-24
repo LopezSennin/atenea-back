@@ -18,6 +18,18 @@ const deudaActivas = async (id_peluqueria) => {
     return rows;
 }
 
+const deudasSaldadas = async (id_peluqueria) => {
+    const query = "SELECT dc.* FROM transaccion dc WHERE dc.id_peluqueria = $1 AND dc.vigente = false AND (dc.tipo_transaccion = 'Pago a crédito de mercancía' OR dc.tipo_transaccion = 'Pago a crédito de atención')";
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+}
+
+const abonos = async (id_peluqueria) => {
+    const query = "SELECT dc.* FROM transaccion dc WHERE dc.id_peluqueria = $1 AND dc.vigente = true AND dc.tipo_transaccion = 'Abono de crédito'";
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+}
+
 const detalleTransaccion = async (id_transaccion) => {
     const query = "SELECT * FROM transaccion WHERE id_transaccion = $1";
     const {rows} = await pool.query(query, [id_transaccion]);
@@ -35,5 +47,7 @@ export const transaccionModel = {
     deudaCliente,
     deudaActivas,
     detalleTransaccion,
-    transaccionesFechaAFecha
+    transaccionesFechaAFecha,
+    deudasSaldadas,
+    abonos
 };

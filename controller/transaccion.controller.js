@@ -33,6 +33,29 @@ const deudaActivas = async (req, res) => {
     }
 }
 
+const deudasSaldadas = async (req, res) => {
+    try {
+        const {id_peluqueria} = req.params;
+        const deuda = await transaccionModel.deudasSaldadas(id_peluqueria);
+        res.status(200).json(deuda);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
+const abonos = async (req, res) => {
+    try {
+        const {id_peluqueria} = req.params;
+        const abonos = await transaccionModel.abonos(id_peluqueria);
+        res.status(200).json(abonos);
+    }
+    catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 const detalleTransaccion = async (req, res) => {
     try {
         const {id_transaccion} = req.params;
@@ -60,5 +83,7 @@ export const transaccionController = {
     deudaCliente,
     deudaActivas,
     detalleTransaccion,
-    transaccionesFechaAFecha
+    transaccionesFechaAFecha,
+    deudasSaldadas,
+    abonos
 };

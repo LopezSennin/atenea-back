@@ -10,6 +10,10 @@ router.get('/deudacliente/:id_cliente', transaccionController.deudaCliente);
 
 router.get('/deudaactivas/:id_peluqueria', transaccionController.deudaActivas);
 
+router.get('/deudassaldadas/:id_peluqueria', transaccionController.deudasSaldadas);
+
+router.get('/abonos/:id_peluqueria', transaccionController.abonos);
+
 router.get('/detalletransaccion/:id_transaccion', transaccionController.detalleTransaccion);
 
 router.get('/fechaafecha/:id_peluqueria/:fecha_inicio/:fecha_fin', transaccionController.transaccionesFechaAFecha);
