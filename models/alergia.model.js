@@ -6,6 +6,12 @@ const findAll = async (id_patologia) => {
     return rows;
 };
 
+const findAllAlergias = async (id_peluqueria) => {
+    const query = 'SELECT * FROM alergia_patologia WHERE id_peluqueria = $1';
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+};
+
 const findByIdCliente = async (id_cliente) => {
     const query = 'SELECT * FROM alergia_patologia WHERE id_cliente = $1';
     const {rows} = await pool.query(query, [id_cliente]);
@@ -29,4 +35,5 @@ export const alergiaModel = {
     findByIdCliente,
     deleteById,
     create,
+    findAllAlergias
 };

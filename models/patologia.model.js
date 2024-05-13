@@ -1,5 +1,11 @@
 import { pool } from "../database/connection.js";
 
+const findAllPatologias = async (id_peluqueria) => {
+  const query = 'SELECT * FROM patologia WHERE id_peluqueria = $1';
+  const {rows} = await pool.query(query, [id_peluqueria]);
+  return rows;
+};
+
 const findByIdCliente = async (id_cliente) => {
     const query = 'SELECT * FROM patologia WHERE id_cliente = $1';
     const {rows} = await pool.query(query, [id_cliente]);
@@ -43,4 +49,5 @@ export const patologiaModel = {
     create,
     updateById,
     deleteById,
+    findAllPatologias
 };

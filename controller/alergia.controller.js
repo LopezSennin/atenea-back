@@ -1,5 +1,16 @@
 import { alergiaModel } from "../models/alergia.model.js";
 
+const getAllAlergias = async (req, res) => {
+    try {
+        const { id_peluqueria } = req.params;
+        const response = await alergiaModel.findAllAlergias(id_peluqueria);
+        res.json(response);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+        console.log(error);
+    }
+};
+
 const getAll = async (req, res) => {
     try {
         const { id_patologia } = req.params;
@@ -49,4 +60,5 @@ export const alergiaController = {
     getByIdCliente,
     deleteById,
     create,
+    getAllAlergias
 };

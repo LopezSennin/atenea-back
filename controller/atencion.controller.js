@@ -11,6 +11,17 @@ const add = async (req, res) => {
     }
 };
 
+const getAllByIdCliente = async (req, res) => {
+    try {
+        const {id_cliente} = req.params;
+        const atencion = await atencionModel.findAllByIdCliente(id_cliente);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+};
+
 const getSinFinalizar = async (req, res) => {
     try {
         const {id_peluqueria} = req.params;
@@ -67,6 +78,17 @@ const getServicioPrestadoPorId = async (req, res) => {
     }
 };
 
+const getServiciosPorCita = async (req, res) => {
+    try {
+        const {id_cita} = req.params;
+        const atencion = await atencionModel.findServiciosPorCita(id_cita);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+};
+
 const registrarCostoServicioPrestado = async (req, res) => {
     try {
         const {id_servicio_prestado} = req.params;
@@ -98,5 +120,7 @@ export const atencionController = {
     getServiciosPrestadosPorFecha,
     getServicioPrestadoPorId,
     registrarCostoServicioPrestado,
-    getServiciosPorEmpleado
+    getServiciosPorEmpleado,
+    getServiciosPorCita,
+    getAllByIdCliente
 };

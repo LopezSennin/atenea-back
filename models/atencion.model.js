@@ -6,16 +6,28 @@ const add = async (id_peluqueria, id_cita, detalle) => {
     return rows[0];
 };
 
+const findAllByIdCliente = async (id_cliente) => {
+    const query = `SELECT id_atencion, detalle, TO_CHAR(fecha, 'YYYY-MM-DD') AS fecha FROM buscar_atenciones_por_cliente($1)`;
+    const {rows} = await pool.query(query, [id_cliente]);
+    return rows;
+}
+
 const findSinFinalizar = async (id_peluqueria) => {
     const query = `SELECT * FROM atencion WHERE id_peluqueria = $1 AND finalizacion_servicio is null `;
     const {rows} = await pool.query(query, [id_peluqueria]);
     return rows;
 }
 
+const findSinFinalizarByEstilista = async (id_empleado) => {
+    const query = `SELECT * FROM atencion WHERE id_empleado = $1 AND finalizacion_servicio is null `;
+    const {rows} = await pool.query(query, [id_empleado]);
+    return rows;
+}
+
 const cambiarPrecio = async (id_atencion, precio) => {
     const query = `SELECT cambiar_precio_servicio_prestado($1, $2)`;
     const {rows} = await pool.query(query, [id_atencion, precio]);
-    return rows[0];
+    return rows[0]; 
 };
 
 const finalizarServicio = async (id_atencion) => {
@@ -34,6 +46,12 @@ const findServicioPrestadoPorId = async (id_atencion) => {
     const query = `SELECT * FROM atencion WHERE id_atencion = $1`;
     const {rows} = await pool.query(query, [id_atencion]);
     return rows[0];
+};
+
+const findServiciosPorCita = async (id_cita) => {
+    const query = `SELECT * FROM atencion WHERE id_cita = $1`;
+    const {rows} = await pool.query(query, [id_cita]);
+    return rows;
 };
 
 const registrarCostoServicioPrestado = async (id_atencion, costo) => {
@@ -56,5 +74,7 @@ export const atencionModel = {
     findServiciosPrestadosPorFecha,
     findServicioPrestadoPorId,
     registrarCostoServicioPrestado,
-    findServiciosPorEmpleado
+    findServiciosPorEmpleado,
+    findServiciosPorCita,
+    findAllByIdCliente
 };

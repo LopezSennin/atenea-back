@@ -1,5 +1,15 @@
 import {patologiaModel} from '../models/patologia.model.js';
 
+const getAllPatologias = async (req, res) => {
+  try {
+    const {id_peluqueria} = req.params;
+    const response = await patologiaModel.findAllPatologias(id_peluqueria);
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({message: error.message});
+    console.log(error)
+  }
+}
 
 const getByIdCliente = async (req, res) => {
     try {
@@ -75,4 +85,5 @@ export const patologiaController = {
     create,
     updateById,
     deleteById,
+    getAllPatologias
 };

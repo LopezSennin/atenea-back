@@ -11,6 +11,17 @@ const add = async (req, res) => {
     }
 };
 
+const getAllServiciosByCliente = async (req, res) => {
+    try {
+        const {id_cliente} = req.params;
+        const servicios = await servicioCitaModel.findAllServiciosByCliente(id_cliente);
+        res.status(200).json(servicios);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 const cambiarInformacion = async (req, res) => {
     try {
         const {id_servicio_cita} = req.params;
@@ -39,5 +50,6 @@ const getServiciosPorAtencion = async (req, res) => {
 export const servicioCitacController = {
     add,
     cambiarInformacion,
-    getServiciosPorAtencion
+    getServiciosPorAtencion,
+    getAllServiciosByCliente
 };

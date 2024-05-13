@@ -7,7 +7,7 @@ const create = async (id_peluqueria, id_cliente, diametro, textura, tono_base,po
 };
 
 const findByIdCliente = async (id_cliente) => {
-    const query = 'SELECT * FROM prueba_capilar WHERE id_cliente = $1';
+    const query = "SELECT id_peluqueria, id_prueba_capilar, id_cliente,  TO_CHAR(fecha, 'YYYY-MM-DD') AS fecha , diametro, textura, tono_base, porcentage_canas, son_recistente_canas, porosidad, test_elasticidad, tono_deseado, grado_decoloracion, proceso_acomulado, cuero_cabelludo, cabello FROM prueba_capilar WHERE id_cliente = $1";
     const {rows} = await pool.query(query, [id_cliente]);
     return rows;
 };

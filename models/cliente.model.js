@@ -1,25 +1,25 @@
 import { pool } from "../database/connection.js";
 
 const findAll = async (id_peluqueria) => {
-    const query = 'SELECT * FROM cliente WHERE id_peluqueria = $1';
+    const query = "SELECT nombre, telefono, email, ciudad, departamento, pais,  TO_CHAR(fecha_nacimiento, 'YYYY-MM-DD') AS fecha_nacimiento, nota, id_peluqueria, id_cliente, identificacion FROM cliente WHERE id_peluqueria = $1";
     const {rows} = await pool.query(query, [id_peluqueria]);
     return rows;
 };
 
 const findById = async (id_cliente) => {
-    const query = 'SELECT * FROM cliente WHERE id_cliente = $1';
+    const query = "SELECT nombre, telefono, email, ciudad, departamento, pais,  TO_CHAR(fecha_nacimiento, 'YYYY-MM-DD') AS fecha_nacimiento, nota, id_peluqueria, id_cliente, identificacion FROM cliente WHERE id_cliente = $1";
     const {rows} = await pool.query(query, [id_cliente]);
     return rows[0];
 };
 
 const findByIdentificacion = async (id_peluqueria, identificacion) => {
-    const query = 'SELECT * FROM cliente WHERE id_peluqueria = $1 AND identificacion = $2';
+    const query = "SELECT nombre, telefono, email, ciudad, departamento, pais,  TO_CHAR(fecha_nacimiento, 'YYYY-MM-DD') AS fecha_nacimiento, nota, id_peluqueria, id_cliente, identificacion FROM cliente WHERE id_peluqueria = $1 AND identificacion = $2";
     const {rows} = await pool.query(query, [id_peluqueria, identificacion]);
     return rows[0];
 };
 
 const findHBD = async (id_peluqueria) => {
-    const query = 'SELECT *	FROM public.cliente WHERE EXTRACT(MONTH FROM fecha_nacimiento) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(DAY FROM fecha_nacimiento) = EXTRACT(DAY FROM CURRENT_DATE) AND id_peluqueria = $1;';
+    const query = "SELECT nombre, telefono, email, ciudad, departamento, pais,  TO_CHAR(fecha_nacimiento, 'YYYY-MM-DD') AS fecha_nacimiento, nota, id_peluqueria, id_cliente, identificacion	FROM public.cliente WHERE EXTRACT(MONTH FROM fecha_nacimiento) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(DAY FROM fecha_nacimiento) = EXTRACT(DAY FROM CURRENT_DATE) AND id_peluqueria = $1;";
     const {rows} = await pool.query(query, [id_peluqueria]);
     return rows;
 }

@@ -25,8 +25,8 @@ const getAllInactivas = async (req, res) => {
 
 const getAllByEstilista = async (req, res) => {
     try {
-        const { id_peluqueria, id_estilista } = req.params;
-        const response = await citaModel.findAllByEstilista(id_peluqueria, id_estilista);
+        const { id_estilista } = req.params;
+        const response = await citaModel.findAllByEstilista( id_estilista);
         res.json(response);
     } catch (error) {
         console.log(error)
@@ -36,8 +36,8 @@ const getAllByEstilista = async (req, res) => {
 
 const getAllByCliente = async (req, res) => {
     try {
-        const { id_peluqueria, id_cliente } = req.params;
-        const response = await citaModel.findAllByCliente(id_peluqueria, id_cliente);
+        const { id_cliente } = req.params;
+        const response = await citaModel.findAllByCliente( id_cliente );
         res.json(response);
     } catch (error) {
         console.log(error)
@@ -81,8 +81,8 @@ const getAllByDia = async (req, res) => {
 const update = async (req, res) => {
     try {
         const { id_cita } = req.params;
-        const {  id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
-        const response = await citaModel.update( id_estilista, id_cliente, id_servicio_principal, fecha, anotacion, id_cita);
+        const {  id_estilista, id_cliente, id_servicio_principal, fecha, hora, anotacion } = req.body;
+        const response = await citaModel.update( id_estilista, id_cliente, id_servicio_principal, fecha, hora, anotacion, id_cita);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -92,8 +92,8 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        const { id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion } = req.body;
-        const response = await citaModel.create( id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, anotacion);
+        const { id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, hora, anotacion } = req.body;
+        const response = await citaModel.create( id_peluqueria, id_estilista, id_cliente, id_servicio_principal, fecha, hora, anotacion);
         res.json(response);
     } catch (error) {
         console.log(error);
@@ -101,14 +101,64 @@ const create = async (req, res) => {
     }
 };
 
-export const citaController = { 
+const deleteCita = async (req, res) => {
+    try {
+        const { id_cita } = req.params;
+        const response = await citaModel.deleteCita(id_cita);
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const cancelarCita = async (req, res) => {
+    try {
+        const { id_cita } = req.params;
+        const { anotacion } = req.body;
+        const response = await citaModel.cancelarCita(id_cita, anotacion);
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+const getNoVigentesByEstilista = async (req, res) => {
+    try {
+        const { id_estilista, fechainicio, fechafin } = req.params;
+        const response = await citaModel.findNoVigentesByEstilista(id_estilista, fechainicio, fechafin);
+        res.json(response);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+}
+
+const cambiarEnAtencion = async (req, res) => {
+    try {
+        const { id_cita } = req.params;
+        const {en_atencion} = req.body;
+        const response = await citaModel.cambiarEnAtencion(id_cita, en_atencion);
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const citaController = {
     getAllActivas,
-    getAllInactivas, 
-    getAllByEstilista, 
+    getAllInactivas,
+    getAllByEstilista,
     getAllByCliente,
-    getAllByFecha, 
-    getByFechaAfecha, 
-    getAllByDia, 
-    update, 
-    create 
+    getAllByFecha,
+    getByFechaAfecha,
+    getAllByDia,
+    update,
+    create,
+    deleteCita,
+    cancelarCita,
+    getNoVigentesByEstilista,
+    cambiarEnAtencion
 };
