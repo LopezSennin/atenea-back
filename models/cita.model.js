@@ -6,6 +6,12 @@ const findAllActivas = async (id_peluqueria) => {
     return rows;
 };
 
+const findAllEnAtencion = async (id_peluqueria) => {
+    const query = "SELECT * FROM cita WHERE id_peluqueria = $1 AND en_atencion = true";
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+}
+
 const findAllInactivas = async (id_peluqueria) => {
     const query = "SELECT id_peluqueria, id_estilista, id_cliente, id_cita, TO_CHAR(fecha, 'YYYY-MM-DD') AS fecha, anotacion, estado, id_servicio_principal, hora FROM cita WHERE id_peluqueria = $1 AND estado = false ORDER BY fecha DESC";
     const {rows} = await pool.query(query, [id_peluqueria]);
@@ -79,6 +85,12 @@ const cambiarEnAtencion = async (id_cita, en_atencion) => {
     return rows;
 }
 
+const cambiarEstadoPorFinalizarAtencion = async (id_cita) => {
+    const query = 'UPDATE cita SET estado = false WHERE id_cita = $1 RETURNING *';
+    const {rows} = await pool.query(query, [id_cita]);
+    return rows;
+}
+
 export const citaModel = {
     findAllActivas,
     findAllInactivas,
@@ -92,5 +104,7 @@ export const citaModel = {
     deleteCita,
     cancelarCita,
     findNoVigentesByEstilista,
-    cambiarEnAtencion
+    cambiarEnAtencion,
+    findAllEnAtencion,
+    cambiarEstadoPorFinalizarAtencion
 };

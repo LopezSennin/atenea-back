@@ -11,6 +11,17 @@ const getAllActivas = async (req, res) => {
     }
 };
 
+const getAllEnAtencion = async (req, res) => {
+    try {
+        const { id_peluqueria } = req.params;
+        const response = await citaModel.findAllEnAtencion(id_peluqueria);
+        res.json(response);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const getAllInactivas = async (req, res) => {
     try {
         const { id_peluqueria } = req.params;
@@ -147,6 +158,17 @@ const cambiarEnAtencion = async (req, res) => {
     }
 }
 
+const cambiarEstadoPorFinalizarAtencion = async (req, res) => {
+    try {
+        const { id_cita } = req.params;
+        const response = await citaModel.cambiarEstadoPorFinalizarAtencion(id_cita);
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export const citaController = {
     getAllActivas,
     getAllInactivas,
@@ -160,5 +182,7 @@ export const citaController = {
     deleteCita,
     cancelarCita,
     getNoVigentesByEstilista,
-    cambiarEnAtencion
+    cambiarEnAtencion,
+    getAllEnAtencion,
+    cambiarEstadoPorFinalizarAtencion
 };

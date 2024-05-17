@@ -13,7 +13,7 @@ const findAllByActivo = async (id_peluqueria, activo) => {
 };
 
 const findAllByRol = async (id_peluqueria, id_rol) => {
-    const query = "SELECT e.nombre, e.email, TO_CHAR(e.fecha_nacimiento, 'DD-MM-YYYY') AS e.fecha_nacimiento, e.activo, e.telefono, e.id_peluqueria, e.id_empleado, e.identificacion FROM empleado e JOIN rol_asignado ra ON e.id_empleado = ra.id_empleado WHERE e.id_peluqueria = $1 and ra.id_rol = $2 and e.activo = true";
+    const query = "SELECT e.nombre, e.email, e.fecha_nacimiento, e.activo, e.telefono, e.id_peluqueria, e.id_empleado, e.identificacion FROM empleado e JOIN rol_asignado ra ON e.id_empleado = ra.id_empleado WHERE e.id_peluqueria = $1 and ra.id_rol = $2 and e.activo = true";
     const {rows} = await pool.query(query, [id_peluqueria, id_rol]);
     return rows;
 };

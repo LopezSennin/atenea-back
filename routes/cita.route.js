@@ -17,6 +17,8 @@ router.get("/:id_peluqueria/:fechad/al/:fechah", citaController.getByFechaAfecha
 
 router.get("/:id_peluqueria/dia/:id_dia", citaController.getAllByDia);
 
+router.get("/enAtencion/:id_peluqueria", citaController.getAllEnAtencion); // NUEVO
+
 router.put("/id/:id_cita", citaController.update);
 
 router.post("/", citaController.create);
@@ -28,5 +30,7 @@ router.put("/cancelar/:id_cita", citaController.cancelarCita);
 router.get("/novigentes/estilista/:id_estilista/:fechainicio/:fechafin", citaController.getNoVigentesByEstilista);
 
 router.put("/cambiar-en-atencion/:id_cita", citaController.cambiarEnAtencion);
+
+router.put("/cambiar-estado-por-finalizar-atencion/:id_cita", citaController.cambiarEstadoPorFinalizarAtencion);
 
 export default router;

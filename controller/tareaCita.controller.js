@@ -2,8 +2,8 @@ import {tareaCitaModel} from '../models/tareaCita.model.js';
 
 const add = async (req, res) => {
     try {
-        const {id_peluqueria, id_auxiliar, id_tarea, anotacion} = req.body;
-        const tareaCita = await tareaCitaModel.add(id_peluqueria, id_auxiliar, id_tarea, anotacion);
+        const {id_peluqueria, id_auxiliar, id_tarea, anotacion, id_atencion} = req.body;
+        const tareaCita = await tareaCitaModel.add(id_peluqueria, id_auxiliar, id_tarea, anotacion, id_atencion);
         res.status(200).json(tareaCita);
     } catch (error) {
         res.status(500).send(error);
@@ -77,6 +77,27 @@ const getAllPendientes = async (req, res) => {
     }
 };
 
+const getByIdAtencion = async (req, res) => {
+    try {
+        const {id_atencion} = req.params;
+        const tareaCita = await tareaCitaModel.findByIdAtencion(id_atencion);
+        res.status(200).json(tareaCita);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+};
+
+const getNombreCliente = async (req, res) => {
+    try {
+        const {id_atencion} = req.params;
+        const tareaCita = await tareaCitaModel.findNombreCliente(id_atencion);
+        res.status(200).json(tareaCita);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
 
 export const tareaCitaController = {
     add,
@@ -85,5 +106,7 @@ export const tareaCitaController = {
     finalizarTarea,
     getAllByAuxiliarFechaAfecha,
     getAllAsignaciones,
-    getAllPendientes
+    getAllPendientes,
+    getByIdAtencion,
+    getNombreCliente
 };

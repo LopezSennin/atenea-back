@@ -1,13 +1,13 @@
 import { pool } from "../database/connection.js";
 
-const add = async (id_peluqueria, id_auxiliar, id_tarea, anotacion) => {
-    const query = `INSERT INTO tarea_cita (id_peluqueria, id_auxiliar, id_tarea, anotacion) VALUES ($1, $2, $3, $4) RETURNING *`;
-    const {rows} = await pool.query(query, [id_peluqueria, id_auxiliar, id_tarea, anotacion]);
+const add = async (id_peluqueria, id_auxiliar, id_tarea, anotacion, id_atencion) => {
+    const query = `INSERT INTO tarea_cita (id_peluqueria, id_auxiliar, id_tarea, anotacion, id_atencion) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const {rows} = await pool.query(query, [id_peluqueria, id_auxiliar, id_tarea, anotacion, id_atencion]);
     return rows[0];
 };
 
 const del = async (id_tarea_cita) => {
-    const query = `SELECT * FROM tarea_cita WHERE id_tarea_cita = $1  AND tarea_finalizada = false RETURNING *`;
+    const query = `DELETE FROM tarea_cita WHERE id_asignacion = $1  AND tarea_finalizada = false RETURNING *`;
     const {rows} = await pool.query(query, [id_tarea_cita]);
     return rows[0];
 };
@@ -42,7 +42,17 @@ const findAllPendientes = async (id_auxiliar) => {
     return rows;
 };
 
+const findByIdAtencion = async (id_atencion) => {
+    const query = `SELECT * FROM tarea_cita WHERE id_atencion = $1`;
+    const {rows} = await pool.query(query, [id_atencion]);
+    return rows;
+};
 
+const findNombreCliente = async (id_atencion) => {
+    const query = `SELECT nombre FROM cliente WHERE id_cliente = (SELECT id_cliente FROM cita WHERE id_cita = (SELECT id_cita FROM atencion where id_atencion = $1))`;
+    const {rows} = await pool.query(query, [id_atencion]);
+    return rows[0];
+}
 
 export const tareaCitaModel = {
     add,
@@ -51,5 +61,7 @@ export const tareaCitaModel = {
     finalizarTarea,
     findAllByAuxiliarFechaAfecha,
     findAllAsignaciones,
-    findAllPendientes
+    findAllPendientes,
+    findByIdAtencion,
+    findNombreCliente
 };

@@ -24,4 +24,8 @@ router.put('/registrarcosto/:id_servicio_prestado', atencionController.registrar
 
 router.get('/serviciosporempleado/:id_empleado/:fecha_desde/:fecha_hasta', atencionController.getServiciosPorEmpleado);
 
+router.get('/sinfinalizar/estilista/:id_estilista', atencionController.getSinFinalizarByEstilista);
+
+router.put('/cambiarDetalle/:id_atencion', atencionController.cambiarDetalle);
+
 export default router;

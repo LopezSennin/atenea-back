@@ -18,4 +18,8 @@ router.get('/allasignaciones/:id_peluqueria', tareaCitaController.getAllAsignaci
 
 router.get('/allpendientes/:id_auxiliar', tareaCitaController.getAllPendientes)
 
+router.get('/byIdAtencion/:id_atencion', tareaCitaController.getByIdAtencion)
+
+router.get('/nombreCliente/:id_atencion', tareaCitaController.getNombreCliente)
+
 export default router;

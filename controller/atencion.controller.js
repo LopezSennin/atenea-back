@@ -2,8 +2,8 @@ import {atencionModel} from '../models/atencion.model.js';
 
 const add = async (req, res) => {
     try {
-        const {id_peluqueria, id_cita, precio, detalle} = req.body;
-        const atencion = await atencionModel.add(id_peluqueria, id_cita, detalle);
+        const {id_peluqueria, id_cita, precio, detalle, id_estilista} = req.body;
+        const atencion = await atencionModel.add(id_peluqueria, id_cita, precio, detalle, id_estilista);
         res.status(200).json(atencion);
     } catch (error) {
         res.status(500).send(error);
@@ -112,6 +112,29 @@ const getServiciosPorEmpleado = async (req, res) => {
     }
 };
 
+const getSinFinalizarByEstilista = async (req, res) => {
+    try {
+        const {id_estilista} = req.params;
+        const atencion = await atencionModel.findSinFinalizarByEstilista(id_estilista);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
+const cambiarDetalle = async (req, res) => {
+    try {
+        const {id_atencion} = req.params;
+        const {detalle} = req.body;
+        const atencion = await atencionModel.cambiarDetalle(id_atencion, detalle);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 export const atencionController = {
     add,
     getSinFinalizar,
@@ -122,5 +145,7 @@ export const atencionController = {
     registrarCostoServicioPrestado,
     getServiciosPorEmpleado,
     getServiciosPorCita,
-    getAllByIdCliente
+    getAllByIdCliente,
+    getSinFinalizarByEstilista,
+    cambiarDetalle
 };

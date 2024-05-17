@@ -1,8 +1,8 @@
 import { pool } from "../database/connection.js";
 
-const add = async (id_peluqueria, id_cita, detalle) => {
-    const query = `INSERT INTO atencion (id_peluqueria, id_cita, detalle) VALUES ($1, $2, $3) RETURNING *`;
-    const {rows} = await pool.query(query, [id_peluqueria, id_cita, detalle]);
+const add = async (id_peluqueria, id_cita, precio, detalle, id_estilista) => {
+    const query = `INSERT INTO atencion (id_peluqueria, id_cita, precio, detalle, id_estilista) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const {rows} = await pool.query(query, [id_peluqueria, id_cita, precio, detalle, id_estilista]);
     return rows[0];
 };
 
@@ -18,20 +18,20 @@ const findSinFinalizar = async (id_peluqueria) => {
     return rows;
 }
 
-const findSinFinalizarByEstilista = async (id_empleado) => {
-    const query = `SELECT * FROM atencion WHERE id_empleado = $1 AND finalizacion_servicio is null `;
-    const {rows} = await pool.query(query, [id_empleado]);
+const findSinFinalizarByEstilista = async (id_estilista) => {
+    const query = `SELECT * FROM atencion WHERE id_estilista = $1 AND finalizacion_servicio is null `;
+    const {rows} = await pool.query(query, [id_estilista]);
     return rows;
 }
 
 const cambiarPrecio = async (id_atencion, precio) => {
-    const query = `SELECT cambiar_precio_servicio_prestado($1, $2)`;
+    const query = `UPDATE atencion SET precio = $2 WHERE id_atencion = $1 RETURNING *`;
     const {rows} = await pool.query(query, [id_atencion, precio]);
     return rows[0]; 
 };
 
 const finalizarServicio = async (id_atencion) => {
-    const query = 'SELECT finalizar_servicio_prestado($1)';
+    const query = 'SELECT finalizar_atencion($1)';
     const {rows} = await pool.query(query, [id_atencion]);
     return rows[0];
 };
@@ -66,6 +66,11 @@ const findServiciosPorEmpleado = async (id_empleado, fecha_desde, fecha_hasta) =
     return rows;
 };
 
+const cambiarDetalle = async (id_atencion, detalle) => {
+    const query = `UPDATE atencion SET detalle = $2 WHERE id_atencion = $1 RETURNING *`;
+    const {rows} = await pool.query(query, [id_atencion, detalle]);
+    return rows[0];
+};
 export const atencionModel = {
     add,
     findSinFinalizar,
@@ -76,5 +81,7 @@ export const atencionModel = {
     registrarCostoServicioPrestado,
     findServiciosPorEmpleado,
     findServiciosPorCita,
-    findAllByIdCliente
+    findAllByIdCliente,
+    findSinFinalizarByEstilista,
+    cambiarDetalle
 };
