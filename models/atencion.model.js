@@ -24,6 +24,12 @@ const findSinFinalizarByEstilista = async (id_estilista) => {
     return rows;
 }
 
+const findAllAtencionesFinalizadas = async (id_peluqueria) => {
+    const query = `SELECT * FROM atencion WHERE id_peluqueria = $1 AND finalizacion_servicio is not null `;
+    const {rows} = await pool.query(query, [id_peluqueria]);
+    return rows;
+}
+
 const cambiarPrecio = async (id_atencion, precio) => {
     const query = `UPDATE atencion SET precio = $2 WHERE id_atencion = $1 RETURNING *`;
     const {rows} = await pool.query(query, [id_atencion, precio]);
@@ -83,5 +89,6 @@ export const atencionModel = {
     findServiciosPorCita,
     findAllByIdCliente,
     findSinFinalizarByEstilista,
-    cambiarDetalle
+    cambiarDetalle,
+    findAllAtencionesFinalizadas
 };

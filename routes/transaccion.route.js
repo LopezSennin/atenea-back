@@ -6,7 +6,11 @@ const router = Router();
 
 router.post('/', transaccionController.agregarTransaccion);
 
+router.put('/abono/:id_transaccion', transaccionController.agregarAbono);
+
 router.get('/deudacliente/:id_cliente', transaccionController.deudaCliente);
+
+router.get('/deudatotalcliente/:id_cliente', transaccionController.deudaTotalDeCliente);
 
 router.get('/deudaactivas/:id_peluqueria', transaccionController.deudaActivas);
 

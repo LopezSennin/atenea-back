@@ -10,6 +10,8 @@ router.get('/allByIdCliente/:id_cliente', atencionController.getAllByIdCliente);
 
 router.get('/sinfinalizar/:id_peluqueria', atencionController.getSinFinalizar);
 
+router.get('/finalizadas/:id_peluqueria', atencionController.getAtencionesFinalizadas);
+
 router.put('/cambiarprecio/:id_servicio_prestado', atencionController.cambiarPrecio);
 
 router.put('/finalizar/:id_servicio_prestado', atencionController.finalizarServicio);

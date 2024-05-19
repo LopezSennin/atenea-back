@@ -6,8 +6,20 @@ const agregar = async (id_peluqueria, id_cliente, tipo_transaccion, monto, anota
     return rows[0];
 }
 
+const agregarAbono = async (id_transaccion, monto, anotacion) => {
+    const query = "SELECT abono_deuda($1, $2, $3)";
+    const {rows} = await pool.query(query, [id_transaccion, monto, anotacion]);
+    return rows[0];
+}
+
 const deudaCliente = async (id_cliente) => {
-    const query = "SELECT dc.* FROM transaccion dc WHERE dc.id_cliente = $1 AND dc.vigente = true AND (dc.tipo_transaccion = 'Pago a crédito de mercancía' OR dc.tipo_transaccion = 'Pago a crédito de atención')";
+    const query = "SELECT dc.* FROM transaccion dc WHERE dc.id_cliente = $1 AND (dc.tipo_transaccion = 'Pago a crédito de mercancía' OR dc.tipo_transaccion = 'Pago a crédito de atención')";
+    const {rows} = await pool.query(query, [id_cliente]);
+    return rows;
+}
+
+const deudaTotalCliente = async (id_cliente) => {
+    const query = "SELECT (SELECT sum(monto) FROM transaccion WHERE id_cliente = $1 AND (tipo_transaccion = 'Pago a crédito de mercancía' OR tipo_transaccion = 'Pago a crédito de atención')) - (SELECT sum(monto) FROM transaccion WHERE id_cliente = $1 AND tipo_transaccion = 'Abono de crédito') as resultado";
     const {rows} = await pool.query(query, [id_cliente]);
     return rows;
 }
@@ -49,5 +61,7 @@ export const transaccionModel = {
     detalleTransaccion,
     transaccionesFechaAFecha,
     deudasSaldadas,
-    abonos
+    abonos,
+    agregarAbono,
+    deudaTotalCliente
 };

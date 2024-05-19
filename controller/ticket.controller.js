@@ -26,7 +26,7 @@ const finalizarAtencion = async (req, res) => {
     try {
         const {anotacion, tipo_transaccion} = req.body;
         const {id_ticket} = req.params;
-        const ticket = await ticketModelo.finalizarAtencion(id_ticket, anotacion, tipo_transaccion);
+        const ticket = await ticketModelo.finalizarAtencion(id_ticket, tipo_transaccion, anotacion);
         res.status(200).json(ticket);
     } catch (error) {
         res.status(500).send(error);
@@ -38,7 +38,7 @@ const finalizarVenta = async (req, res) => {
     try {
         const {anotacion, tipo_transaccion} = req.body;
         const {id_ticket} = req.params;
-        const ticket = await ticketModelo.finalizarVenta(id_ticket, anotacion, tipo_transaccion);
+        const ticket = await ticketModelo.finalizarVenta(id_ticket, tipo_transaccion, anotacion);
         res.status(200).json(ticket);
     } catch (error) {
         res.status(500).send(error);

@@ -19,7 +19,7 @@ const finalizarAtencion = async (id_ticket, tipo_transaccion, anotacion) => {
 }
 
 const finalizarVenta = async (id_ticket, tipo_transaccion, anotacion) => {
-    const query = `SELECT finalizar_ticket_venta($1, $2, $3)`;
+    const query = `SELECT finalizar_ticket_mercancia($1, $2, $3)`;
     const {rows} = await pool.query(query, [id_ticket, tipo_transaccion, anotacion]);
     return rows;
 }

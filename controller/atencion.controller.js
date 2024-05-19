@@ -33,6 +33,17 @@ const getSinFinalizar = async (req, res) => {
     }
 };
 
+const getAtencionesFinalizadas = async (req, res) => {
+    try {
+        const {id_peluqueria} = req.params;
+        const atencion = await atencionModel.findAllAtencionesFinalizadas(id_peluqueria);
+        res.status(200).json(atencion);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 const cambiarPrecio = async (req, res) => {
     try {
         const {id_servicio_prestado} = req.params;
@@ -147,5 +158,6 @@ export const atencionController = {
     getServiciosPorCita,
     getAllByIdCliente,
     getSinFinalizarByEstilista,
-    cambiarDetalle
+    cambiarDetalle,
+    getAtencionesFinalizadas
 };

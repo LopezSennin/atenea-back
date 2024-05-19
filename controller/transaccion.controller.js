@@ -11,11 +11,34 @@ const agregarTransaccion = async (req, res) => {
     }
 }
 
+const agregarAbono = async (req, res) => {
+    try {
+        const {id_transaccion} = req.params;
+        const {monto, anotacion} = req.body;
+        const abono = await transaccionModel.agregarAbono(id_transaccion, monto, anotacion);
+        res.status(200).json(abono);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
 const deudaCliente = async (req, res) => {
     try {
         const {id_cliente} = req.params;
         const deuda = await transaccionModel.deudaCliente(id_cliente);
         res.status(200).json(deuda);
+    } catch (error) {
+        res.status(500).send(error);
+        console.log(error);
+    }
+}
+
+const deudaTotalDeCliente = async (req, res) => {
+    try {
+        const {id_cliente} = req.params;
+        const abonos = await transaccionModel.deudaTotalCliente(id_cliente);
+        res.status(200).json(abonos);
     } catch (error) {
         res.status(500).send(error);
         console.log(error);
@@ -85,5 +108,7 @@ export const transaccionController = {
     detalleTransaccion,
     transaccionesFechaAFecha,
     deudasSaldadas,
-    abonos
+    abonos,
+    agregarAbono,
+    deudaTotalDeCliente
 };
