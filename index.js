@@ -29,7 +29,12 @@ import cors from "cors";
 
 const app = new Express();
 
-app.use(cors());
+const corsOptions = {
+    origin: ['https://atenea-app.vercel.app/', 'https://atenea-app-git-main-luis-eduardo-lopez-grisales-projects.vercel.app/','http://localhost:8000'], // Reemplaza esto con tu origen específico
+    optionsSuccessStatus: 200 // Algunos navegadores antiguos (IE11) pueden requerir esto
+};
+
+app.use(cors(corsOptions));
 
 app.use(Express.json());
 
