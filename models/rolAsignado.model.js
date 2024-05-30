@@ -19,7 +19,7 @@ const findByIdEmpleado = async (id_empleado) => {
 };
 
 const deleteAsig = async (id_asignacion) => {
-    const query = 'DELETE FROM rol_asignado WHERE id_asignacion = $1 RETURNING *';
+    const query = 'DELETE FROM rol_asignado WHERE id_empleado = $1 RETURNING *';
     const {rows} = await pool.query(query, [id_asignacion]);
     return rows[0];
 };
